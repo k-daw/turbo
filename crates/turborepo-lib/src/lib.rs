@@ -16,6 +16,7 @@ mod engine;
 mod execution_state;
 pub(crate) mod globwatcher;
 pub mod graph;
+mod hash;
 mod manager;
 mod opts;
 mod package_graph;
