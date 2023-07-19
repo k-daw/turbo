@@ -307,7 +307,7 @@ mod test {
             .as_ref()
             .unwrap();
         assert!(b_external.contains(&Package {
-            name: "c".into(),
+            key: "c".into(),
             version: "1.2.3".into()
         }));
     }
