@@ -183,11 +183,19 @@ impl<'a> BuildState<'a, ResolvedPackageManager> {
     ) -> Result<(), Error> {
         let relative_json_path =
             AnchoredSystemPathBuf::relative_path_between(self.repo_root, &package_json_path);
+<<<<<<< HEAD
         let name = WorkspaceName::Other(
             json.name
                 .clone()
                 .ok_or(Error::PackageJsonMissingName(package_json_path))?,
         );
+=======
+        let name = WorkspaceName::Other(json.name.clone().ok_or_else(|| {
+            Error::PackageJsonMissingName {
+                path: package_json_path,
+            }
+        })?);
+>>>>>>> 8c3242ddf (Fixes)
         let entry = WorkspaceInfo {
             package_json: json,
             package_json_path: relative_json_path,
@@ -397,7 +405,9 @@ impl<'a> BuildState<'a, ResolvedLockfile> {
                     .as_ref()
                     .map(|deps| {
                         deps.iter()
-                            .map(|Package { key, version }| (key.to_string(), version.to_string()))
+                            .map(|Package { name, version }| {
+                                (name.to_string(), version.to_string())
+                            })
                             .collect()
                     })
                     .unwrap_or_default();
@@ -471,7 +481,7 @@ impl Dependencies {
                 internal.insert(workspace);
             } else {
                 external.insert(Package {
-                    key: name.clone(),
+                    name: name.clone(),
                     version: version.clone(),
                 });
             }

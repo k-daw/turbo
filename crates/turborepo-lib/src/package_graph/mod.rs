@@ -183,6 +183,12 @@ impl PackageGraph {
             .flatten()
             .collect()
     }
+
+    #[allow(dead_code)]
+    fn external_dependencies(&self, workspace: &WorkspaceName) -> Option<&HashSet<Package>> {
+        let entry = self.workspaces.get(workspace)?;
+        entry.unresolved_external_dependencies.as_ref()
+    }
 }
 
 impl fmt::Display for WorkspaceName {
@@ -307,7 +313,7 @@ mod test {
             .as_ref()
             .unwrap();
         assert!(b_external.contains(&Package {
-            key: "c".into(),
+            name: "c".into(),
             version: "1.2.3".into()
         }));
     }
