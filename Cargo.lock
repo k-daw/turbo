@@ -7008,11 +7008,8 @@ dependencies = [
  "swc_common",
  "swc_css_ast",
  "swc_css_codegen",
- "swc_css_compat",
- "swc_css_modules",
  "swc_css_parser",
  "swc_css_prefixer",
- "swc_css_utils",
  "swc_css_visit",
  "swc_ecma_ast",
  "swc_ecma_codegen",
@@ -7046,7 +7043,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec2e1600c87a641d34dc6b344f8353fa20ffedd78dc5680e1546889579cfa2c1"
 dependencies = [
  "is-macro",
- "serde",
  "string_enum",
  "swc_atoms",
  "swc_common",
@@ -7080,39 +7076,6 @@ dependencies = [
  "quote",
  "swc_macros_common",
  "syn 2.0.25",
-]
-
-[[package]]
-name = "swc_css_compat"
-version = "0.23.21"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13cc75a6f80f1e8992faf160a7af5a2dfcb0fc0b4b8c8db003919756f39e28ea"
-dependencies = [
- "bitflags 2.3.3",
- "once_cell",
- "serde",
- "serde_json",
- "swc_atoms",
- "swc_common",
- "swc_css_ast",
- "swc_css_utils",
- "swc_css_visit",
-]
-
-[[package]]
-name = "swc_css_modules"
-version = "0.25.24"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "abb1f7a6cd156b8d4c75a9d88dd5b072ea5a58a8e572d58524fcce0eb4dbb99c"
-dependencies = [
- "rustc-hash",
- "serde",
- "swc_atoms",
- "swc_common",
- "swc_css_ast",
- "swc_css_codegen",
- "swc_css_parser",
- "swc_css_visit",
 ]
 
 [[package]]
@@ -9838,6 +9801,7 @@ dependencies = [
  "turbopath",
  "turborepo-api-client",
  "turborepo-cache",
+ "turborepo-ci",
  "turborepo-env",
  "turborepo-fs",
  "turborepo-lockfiles",
