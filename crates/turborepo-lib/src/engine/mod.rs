@@ -116,6 +116,14 @@ impl Engine<Built> {
         )
     }
 
+    pub fn tasks(&self) -> impl Iterator<Item = &TaskNode> {
+        self.task_graph.node_weights()
+    }
+
+    pub fn task_definitions(&self) -> &HashMap<TaskId<'static>, Rc<TaskDefinition>> {
+        &self.task_definitions
+    }
+
     pub fn validate(
         &self,
         package_graph: &PackageGraph,

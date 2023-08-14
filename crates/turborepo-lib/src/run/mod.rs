@@ -27,6 +27,7 @@ use crate::{
     package_graph::{PackageGraph, WorkspaceName},
     package_json::PackageJson,
     run::{cache::RunCache, global_hash::get_global_hash_inputs},
+    task_hash::PackageFileHashes,
 };
 
 #[derive(Debug)]
@@ -210,6 +211,16 @@ impl Run {
             daemon,
             self.base.ui,
         );
+
+        let package_file_hashes = PackageFileHashes::calculate_file_hashes(
+            scm,
+            engine.tasks(),
+            pkg_dep_graph.workspaces().collect(),
+            engine.task_definitions(),
+            &self.base.repo_root,
+        )?;
+
+        debug!("package file hashes: {:?}", package_file_hashes);
 
         Ok(())
     }

@@ -26,6 +26,7 @@ mod rewrite_json;
 mod run;
 mod shim;
 mod task_graph;
+mod task_hash;
 mod tracing;
 
 use ::tracing::error;
