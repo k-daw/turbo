@@ -3,12 +3,13 @@ use tracing::trace;
 
 use crate::{
     cli::Args, commands::CommandBase, package_json::PackageJson, package_manager::PackageManager,
-    run::Run,
+    run::Run, task_hash::PackageFileHashes,
 };
 
 #[derive(Debug, Serialize)]
 pub struct ExecutionState<'a> {
     global_hash: Option<String>,
+    //    package_file_hashes: Option<PackageFileHashes>,
     pub api_client_config: APIClientConfig<'a>,
     package_manager: PackageManager,
     pub cli_args: &'a Args,
@@ -33,13 +34,17 @@ impl<'a> TryFrom<&'a CommandBase> for ExecutionState<'a> {
         let run = Run::new((*base).clone());
 
         let global_hash;
+        let package_file_hashes;
         #[cfg(debug_assertions)]
         {
-            global_hash = Some(run.get_global_hash()?);
+            let (global, package) = run.get_hashes()?;
+            global_hash = Some(global);
+            package_file_hashes = Some(package);
         }
         #[cfg(not(debug_assertions))]
         {
             global_hash = None;
+            package_file_hashes = None;
         }
 
         let root_package_json =
@@ -65,6 +70,7 @@ impl<'a> TryFrom<&'a CommandBase> for ExecutionState<'a> {
 
         Ok(ExecutionState {
             global_hash,
+            //          package_file_hashes,
             api_client_config,
             package_manager,
             cli_args: base.args(),

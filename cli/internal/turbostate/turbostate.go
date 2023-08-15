@@ -90,9 +90,20 @@ type ParsedArgsFromRust struct {
 	Command            Command `json:"command"`
 }
 
+type TaskId struct {
+	Pkg  string `json:"package"`
+	Task string `json:"task"`
+}
+
+type PackageFileHashes struct {
+	PackageInputsHashes         map[TaskId]string            `json:"package_inputs_hashes"`
+	PackageInputsExpandedHashes map[TaskId]map[string]string `json:"package_inputs_expanded_hashes"`
+}
+
 // ExecutionState is the entire state of a turbo execution that is passed from the Rust shim.
 type ExecutionState struct {
-	GlobalHash      *string            `json:"global_hash"`
+	GlobalHash *string `json:"global_hash"`
+	//	PackageFileHashes PackageFileHashes  `json:"package_file_hashes"`
 	APIClientConfig APIClientConfig    `json:"api_client_config"`
 	PackageManager  string             `json:"package_manager"`
 	CLIArgs         ParsedArgsFromRust `json:"cli_args"`
