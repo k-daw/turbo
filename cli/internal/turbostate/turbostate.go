@@ -4,6 +4,7 @@
 package turbostate
 
 import (
+	"github.com/vercel/turbo/cli/internal/turbopath"
 	"github.com/vercel/turbo/cli/internal/util"
 )
 
@@ -95,18 +96,18 @@ type TaskId struct {
 	Task string `json:"task"`
 }
 
-type PackageFileHashes struct {
-	PackageInputsHashes         map[TaskId]string            `json:"package_inputs_hashes"`
-	PackageInputsExpandedHashes map[TaskId]map[string]string `json:"package_inputs_expanded_hashes"`
+type PackageInputsHashes struct {
+	PackageInputsHashes         map[string]string                                `json:"package_inputs_hashes"`
+	PackageInputsExpandedHashes map[string]map[turbopath.AnchoredUnixPath]string `json:"package_inputs_expanded_hashes"`
 }
 
 // ExecutionState is the entire state of a turbo execution that is passed from the Rust shim.
 type ExecutionState struct {
-	GlobalHash *string `json:"global_hash"`
-	//	PackageFileHashes PackageFileHashes  `json:"package_file_hashes"`
-	APIClientConfig APIClientConfig    `json:"api_client_config"`
-	PackageManager  string             `json:"package_manager"`
-	CLIArgs         ParsedArgsFromRust `json:"cli_args"`
+	GlobalHash          *string              `json:"global_hash"`
+	PackageInputsHashes *PackageInputsHashes `json:"package_inputs_hashes"`
+	APIClientConfig     APIClientConfig      `json:"api_client_config"`
+	PackageManager      string               `json:"package_manager"`
+	CLIArgs             ParsedArgsFromRust   `json:"cli_args"`
 }
 
 // APIClientConfig holds the authentication and endpoint details for the API client
