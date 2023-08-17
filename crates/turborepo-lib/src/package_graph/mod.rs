@@ -39,6 +39,13 @@ impl WorkspaceInfo {
         &self.package_json_path
     }
 
+    /// The directory of the workspace (computed from package.json path)
+    pub fn dir(&self) -> &AnchoredSystemPath {
+        self.package_json_path
+            .parent()
+            .unwrap_or_else(|| AnchoredSystemPath::new("").unwrap())
+    }
+
     pub fn get_external_deps_hash(&self) -> String {
         let mut transitive_deps = Vec::with_capacity(
             self.transitive_dependencies
