@@ -15,6 +15,8 @@ mod builder;
 
 pub use builder::{Error, PackageGraphBuilder};
 
+use crate::hash::{LockFilePackages, TurboHash};
+
 pub struct PackageGraph {
     workspace_graph: petgraph::Graph<WorkspaceNode, ()>,
     #[allow(dead_code)]
@@ -35,6 +37,25 @@ pub struct WorkspaceInfo {
 impl WorkspaceInfo {
     pub fn package_json_path(&self) -> &AnchoredSystemPathBuf {
         &self.package_json_path
+    }
+
+    pub fn get_external_deps_hash(&self) -> String {
+        let mut transitive_deps = Vec::with_capacity(
+            self.transitive_dependencies
+                .as_ref()
+                .map_or(0, |deps| deps.len()),
+        );
+
+        for dependency in self.transitive_dependencies.iter().flatten() {
+            transitive_deps.push(dependency.clone());
+        }
+
+        transitive_deps.sort_by(|a, b| match a.key.cmp(&b.key) {
+            std::cmp::Ordering::Equal => a.version.cmp(&b.version),
+            other => other,
+        });
+
+        LockFilePackages(transitive_deps).hash()
     }
 }
 
