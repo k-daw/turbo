@@ -37,7 +37,6 @@ func HashTask(task *hash.TaskHashable) (string, error) {
 
 // HashGlobal produces the global hash value to be incorporated in every task hash
 func HashGlobal(global hash.GlobalHashable) (string, error) {
-	fmt.Printf("HashGlobal: %+v\n", global)
 	return hash.HashGlobalHashable(&global)
 }
 
