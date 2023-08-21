@@ -80,7 +80,7 @@ mdxjs = { version = "0.1.14" }
 modularize_imports = { version = "0.34.0" }
 styled_components = { version = "0.61.0" }
 styled_jsx = { version = "0.38.0" }
-swc_core = { version = "0.79.65" }
+swc_core = { version = "0.79.66" }
 swc_emotion = { version = "0.37.0" }
 swc_relay = { version = "0.9.0" }
 testing = { version = "0.33.24" }
