@@ -18,7 +18,6 @@ use crate::{
         CommandBase,
     },
     config::Error,
-    get_version,
 };
 
 const DEFAULT_HOST_NAME: &str = "127.0.0.1";
