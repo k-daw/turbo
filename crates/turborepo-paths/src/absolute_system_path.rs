@@ -355,7 +355,6 @@ impl AbsoluteSystemPath {
     }
 }
 
-
 impl PartialEq<&AbsoluteSystemPath> for Path {
     fn eq(&self, other: &&AbsoluteSystemPath) -> bool {
         Utf8Path::from_path(self)
