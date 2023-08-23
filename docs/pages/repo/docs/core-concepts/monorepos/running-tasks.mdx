@@ -45,8 +45,8 @@ First, we declare our tasks inside `turbo.json`:
   "pipeline": {
     "build": {
       "outputs": [".next/**", "!.next/cache/**", ".svelte-kit/**"],
-      // ^build means `build` must be run in dependencies
-      // before it can be run in this workspace
+      // ^build means `build` must be run in dependencies (packages/shared)
+      // before it can be run in each workspace (apps/web and apps/docs)
       "dependsOn": ["^build"]
     },
     "test": {},
